@@ -1,0 +1,40 @@
+{
+  "pages": [
+    "pages/index/main",
+    "pages/list/main",
+    "pages/me/main",
+    "pages/index/config/main",
+    "pages/index/sign/main"
+  ],
+  "window": {
+    "backgroundTextStyle": "light",
+    "navigationBarBackgroundColor": "#fff",
+    "navigationBarTitleText": "",
+    "navigationBarTextStyle": "black"
+  },
+  "tabBar": {
+    "color": "#000000",
+    "selectedColor": "#000000",
+    "backgroundColor": "#ffffff",
+    "list": [
+      {
+        "iconPath": "assets/icon/index.png",
+        "selectedIconPath": "assets/icon/index-selected.png",
+        "pagePath": "pages/index/main",
+        "text": "考勤"
+      },
+      {
+        "iconPath": "assets/icon/list.png",
+        "selectedIconPath": "assets/icon/list-selected.png",
+        "pagePath": "pages/list/main",
+        "text": "列表"
+      },
+      {
+        "iconPath": "assets/icon/me.png",
+        "selectedIconPath": "assets/icon/me-selected.png",
+        "pagePath": "pages/me/main",
+        "text": "我的"
+      }
+    ]
+  }
+}
