@@ -10,7 +10,7 @@
       </div>
     </div>
     <div class="list__wrapper">
-      <div class="list-item">
+      <div class="list-item" @click="testAttnd">
         <p class="list-item__t1">计算机网络</p>
         <p class="list-item__t2">日期：2018-12-21</p>
         <p class="list-item__t2">时间：14:26</p>
@@ -40,6 +40,11 @@
       },
       onSignTabClick() {
         this.tabIndex = 1
+      },
+      testAttnd() {
+        wx.navigateTo({
+          url: "../attnd/main"
+        });
       }
     },
     computed: {
@@ -123,6 +128,9 @@
   }
   .list-item {
     p { letter-spacing: 1rpx; }
+    &:active {
+      background: @greyActive;
+    }
     background: white;
     padding: 30rpx 60rpx;
     box-sizing: border-box;
