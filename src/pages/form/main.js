@@ -1,5 +1,5 @@
 import Vue from 'vue'
-import App from './config'
+import App from './form'
 
 const app = new Vue(App)
 app.$mount()

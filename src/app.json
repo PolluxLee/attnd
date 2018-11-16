@@ -3,8 +3,7 @@
     "pages/index/main",
     "pages/list/main",
     "pages/me/main",
-    "pages/index/config/main",
-    "pages/index/sign/main"
+    "pages/form/main"
   ],
   "window": {
     "backgroundTextStyle": "light",

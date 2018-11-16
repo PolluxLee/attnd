@@ -25,12 +25,12 @@ export default {
   methods: {
     onConfigClick() {
       wx.navigateTo({
-        url: "./config/main"
+        url: "../form/main?type=0"
       });
     },
     onSignClick() {
       wx.navigateTo({
-        url: "./sign/main"
+        url: "../form/main?type=1"
       });
     }
   }
@@ -45,7 +45,7 @@ export default {
   }
   &__wrapper {
     width: 100%;
-    padding: 300rpx 100rpx 0 100rpx;
+    padding: 200rpx 100rpx 0 100rpx;
     box-sizing: border-box;
   }
   &__title {
