@@ -1,65 +1,100 @@
 <template>
   <div class="list">
-    <div class="list__nav">
-      <div class="list__tab">
-        <p class="list__tab--1" @click="onAttndTabClick" :style="tab1Toggle">考勤</p>
-        <p class="list__tab--2" @click="onSignTabClick" :style="tab2Toggle">签到</p>
-      </div>
-      <div class="list__refresh">
-        <img src="../../assets/icon/refresh.png">
-      </div>
-    </div>
-    <div class="list__wrapper">
-      <div class="list-item" @click="testAttnd">
-        <p class="list-item__t1">计算机网络</p>
-        <p class="list-item__t2">日期：2018-12-21</p>
-        <p class="list-item__t2">时间：14:26</p>
-        <p class="list-item__t2">发布者：纸纸纸盆</p>
-      </div>
-    </div>
-    <div class="list__more">
-      <p>加载更多</p>
-    </div>
+    <ov-header 
+      :header-height="headerHeight"
+      @header-tab="onTabToggle"
+      @header-refresh="onRefreshClick">
+    </ov-header>
+    <ov-listview
+      :scroll-height="scrollHeight"
+      :list-data="getListData"
+      :list-loading="listLoading"
+      @scroll-bottom="onScrollBottom">
+    </ov-listview>
   </div>
 </template>
 
 <script>
-  import listitem from '@/components/list-item'
+  import OvHeader from '@/components/ov-header';
+  import OvListview from '@/components/ov-listview';
+
+  // 紧紧当 onShow 和点击刷新按钮时获取最新数据
+  // 上拉触底时追加新数据
   export default {
     data() {
       return {
-        tabIndex: 0
+        headerHeight: 100,  // rpx
+        tabIndex: 0,
+        scrollHeight: 0,
+        listData: {
+          attnd: [
+            { name: '未命名1', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名2', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名3', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名4', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名5', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名6', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名7', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名8', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名9', date: '2018-09-10 21:30', author: '纸纸纸盆' }
+          ],
+          signin: [
+            { name: '未命名5', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名6', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名7', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名8', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            { name: '未命名9', date: '2018-09-10 21:30', author: '纸纸纸盆' }
+          ]
+        },
+        loading: false,
+        listLoading: false
       }
     },
     components: {
-      "list-item": listitem
+      'ov-listview': OvListview,
+      'ov-header': OvHeader
     },
     methods: {
-      onAttndTabClick() {
-        this.tabIndex = 0
+      // 计算 ScrollView 的高度
+      getScrollViewHeight() {
+        try {
+          const { windowWidth, windowHeight } = wx.getSystemInfoSync();
+          const headerHeight = this.headerHeight * (windowWidth / 750);
+          return windowHeight - headerHeight - 1;
+        } catch (e) {}
+        return 750;
       },
-      onSignTabClick() {
-        this.tabIndex = 1
+      onTabToggle(tabIndex) {
+        this.tabIndex = tabIndex;
       },
-      testAttnd() {
-        wx.navigateTo({
-          url: "../attnd/main"
-        });
+      onRefreshClick() {
+
+      },
+      onScrollBottom() {
+        if (this.listLoading) return;
+        this.listLoading = true;
+        if (this.tabIndex === 0) {
+          setTimeout(() => {
+            this.listData.attnd = this.listData.attnd.concat([
+              { name: '未命名1', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名2', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名3', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名4', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名5', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            ])
+            this.listLoading = false;
+          }, 2000);
+        }
       }
     },
     computed: {
-      tab1Toggle() {
-        if (this.tabIndex === 0) {
-          return `border-bottom: 8rpx solid #3ABB69;color: black`
-        }
-        return `border-bottom: 8rpx solid #ffffff;color: #838383`
-      },
-      tab2Toggle() {
-        if (this.tabIndex === 1) {
-          return `border-bottom: 8rpx solid #3ABB69;color: black`
-        }
-        return `border-bottom: 8rpx solid #ffffff;color: #838383`
+      getListData() {
+        if (this.tabIndex === 0) return this.listData.attnd;
+        if (this.tabIndex === 1) return this.listData.signin;
       }
+    },
+    created() {
+      this.scrollHeight = this.getScrollViewHeight();
     }
   }
 </script>
@@ -70,82 +105,6 @@
     width: 100%;
     height: 100%;
     background-color: @bg;
-  }
-  .list {
-    box-sizing: border-box;
-    p { letter-spacing: 1rpx; }
-    &__nav {
-      width: 100%;
-      height: 100rpx;
-      background: white;
-      box-sizing: border-box;
-      padding: 10rpx 60rpx 20rpx 60rpx;
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      position: fixed;
-      left: 0;
-      top: 0;
-    }
-    &__tab {
-      font-size: 32rpx;
-      display: flex;
-      &--1, &--2 {
-        box-sizing: border-box;
-        padding: 8rpx 0 8rpx 0;
-        margin-right: 50rpx;
-      }
-    }
-    &__refresh {
-      width: 60rpx;
-      height: 60rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      img {
-        width: 32rpx;
-        height: 32rpx;
-      }
-    }
-    &__wrapper {
-      background-color: @bg;
-      margin-top: 100rpx;
-    }
-    &__more {
-      width: 200rpx;
-      height: 56rpx;
-      font-size: 30rpx;
-      box-sizing: border-box;
-      color: @border;
-      border: 1rpx solid @border;
-      border-radius: 28rpx;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      line-height: 1;
-      margin: 36rpx auto;
-    }
-  }
-  .list-item {
-    p { letter-spacing: 1rpx; }
-    &:active {
-      background: @greyActive;
-    }
-    background: white;
-    padding: 30rpx 60rpx;
-    box-sizing: border-box;
-    margin-bottom: 10rpx;
-    &__t1 {
-      font-size: 36rpx;
-      line-height: 1;
-      margin-bottom: 30rpx;
-    }
-    &__t2 {
-      font-size: 28rpx;
-      line-height: 1;
-      color: @font2;
-      margin-top: 10rpx;
-    }
   }
 </style>
 

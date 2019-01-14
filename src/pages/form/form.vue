@@ -75,7 +75,7 @@
 </template>
 
 <script>
-  import { pageType } from "../../utils/consts.js"
+  import { PageTypes } from "../../utils/consts.js"
   export default {
     data() {
       return {
@@ -87,11 +87,11 @@
     },
     computed: {
       isError() { return this.type === -1 },
-      isAttnd() { return this.type === pageType.ATTND },
-      isSign() { return this.type === pageType.SIGN },
-      isSelf() { return this.type === pageType.SELF },
-      isEmail() { return this.type === pageType.EMAIL },
-      isAuth() { return this.type === pageType.AUTH }
+      isAttnd() { return this.type === PageTypes.ATTND },
+      isSign() { return this.type === PageTypes.SIGN },
+      isSelf() { return this.type === PageTypes.SELF },
+      isEmail() { return this.type === PageTypes.EMAIL },
+      isAuth() { return this.type === PageTypes.AUTH }
     },
     methods: {
       onAuthConfirm() {

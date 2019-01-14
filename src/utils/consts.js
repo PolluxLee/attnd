@@ -1,4 +1,4 @@
-export const pageType = {
+export const PageTypes = {
   ATTND: 0,
   SIGN: 1,
   SELF: 2,
