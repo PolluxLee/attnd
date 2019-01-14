@@ -1,27 +1,16 @@
 <template>
-  <div class="me-item" @click="onItemClick">
+  <div class="me-item">
     <div class="me-item__title">
-        <slot></slot>
+      <p>
+        <slot name="title"></slot>
+      </p>
     </div>
   </div>
 </template>
 
 <script>
   export default {
-    data() {
-      return {}
-    },
-    props: {
-      type: String,
-      required: true,
-      default: 'about'
-    },
-    methods: {
-      onItemClick() {
-        console.log('dianji ')
-        this.$emit('item-click', this.type);
-      }
-    }
+
   }
 </script>
 
