@@ -47,6 +47,7 @@
     "optimize-css-assets-webpack-plugin": "^3.2.0",
     "ora": "^2.0.0",
     "portfinder": "^1.0.13",
+    "postcss-autoreset": "^2.0.2",
     "postcss-loader": "^2.1.4",
     "postcss-mpvue-wxss": "^1.0.0",
     "prettier": "~1.12.1",

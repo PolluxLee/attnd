@@ -6,7 +6,7 @@
         <p class="ovheader__tab--2" @click="onTabClick(1)" :style="tab2Toggle">签到</p>
       </div>
       <div class="ovheader__refresh">
-        <img src="../assets/icon/refresh.png">
+        <img src="../../assets/icon/refresh.png">
       </div>
     </div>
   </div>
@@ -57,7 +57,7 @@
 
 
 <style lang="less">
-  @import "../assets/style/_variables.less";
+  @import "../../assets/style/_variables.less";
   .ovheader {
     box-sizing: border-box;
     p { letter-spacing: 1rpx; }

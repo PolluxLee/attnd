@@ -15,7 +15,7 @@
 </template>
 
 <script>
-  import Hint from './hint';
+  import Hint from '../hint';
 
   export default {
     data() {
@@ -56,7 +56,7 @@
 </script>
 
 <style lang="less">
-  @import "../assets/style/_variables.less";
+  @import "../../assets/style/_variables.less";
 
   .ovitem {
     p { letter-spacing: 1rpx; }

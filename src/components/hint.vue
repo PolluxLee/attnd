@@ -1,8 +1,8 @@
 <template>
   <div class="hint">
-    <slot>
-      <p :style="{visibility: show? 'visible': 'hidden'}">正在加载...</p>
-    </slot>
+    <p :style="{visibility: show? 'visible': 'hidden'}">
+      {{title}}
+    </p>
   </div>
 </template>
 
@@ -12,6 +12,10 @@
       show: {
         type: Boolean,
         default: false
+      },
+      title: {
+        type: String,
+        default: '正在加载...'
       }
     }
   }

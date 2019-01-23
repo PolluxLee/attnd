@@ -15,8 +15,8 @@
 </template>
 
 <script>
-  import OvHeader from '@/components/ov-header';
-  import OvListview from '@/components/ov-listview';
+  import OvHeader from '@/components/list/list-header';
+  import OvListview from '@/components/list/list-listview';
 
   // 紧紧当 onShow 和点击刷新按钮时获取最新数据
   // 上拉触底时追加新数据
