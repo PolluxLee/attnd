@@ -29,9 +29,6 @@
         loading: false
       }
     },
-    props: {
-
-    },
     components: {
       'attnd-header': AttndHeader,
       'attnd-content': AttndContent,

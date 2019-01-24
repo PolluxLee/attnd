@@ -14,33 +14,43 @@
         </div>
       </div>
     </div>
+    <tips :show="showTips"/>
   </div>
 </template>
 
 <script>
-import { PageTypes } from "../../utils/consts";
+  import { PageTypes } from '../../utils/consts';
+  import Tips from '../../components/tips';
 
-export default {
-  data() {
-    return {
-      PageTypes
-    };
-  },
-  methods: {
-    onOperClick(pageType) {
-      wx.navigateTo({ url: `../form/main?type=${pageType}` });
+  export default {
+    data() {
+      return {
+        PageTypes,
+        showTips: false
+      };
     },
-    onAttnd() {
-      wx.navigateTo({ url: '../attnd/main' });
+    components: {
+      tips: Tips
+    },
+    methods: {
+      onOperClick(pageType) {
+        wx.navigateTo({ url: `../form/main?type=${pageType}` });
+      },
+      onAttnd() {
+        this.showTips = true;
+        setTimeout(() => {
+          this.showTips = false;
+        }, 2000);
+      }
     }
-  }
-};
+  };
 </script>
 
 <style lang="less">
   @import "../../assets/style/_variables.less";
 
   .index {
+    position: relative;
     &__wrapper {
       width: 100%;
       padding: 200rpx 100rpx 0 100rpx;
