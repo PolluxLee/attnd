@@ -26,7 +26,7 @@
 </template>
 
 <script>
-  import { PageTypes } from "../../utils/consts.js"
+  import { PageTypes } from "../../utils/consts";
   import MeItem from "@/components/me/me-item";
 
   export default {
@@ -40,20 +40,7 @@
     },
     methods: {
       onItemClick(type) {
-        switch (type) {
-          case PageTypes.SELF: 
-            wx.navigateTo({ url: `../form/main?type=${PageTypes.SELF}`});
-            break;
-          case PageTypes.EMAIL:
-            wx.navigateTo({ url: `../form/main?type=${PageTypes.EMAIL}`});
-            break;
-          case PageTypes.AUTH:
-            wx.navigateTo({ url: `../form/main?type=${PageTypes.AUTH}`});
-            break;
-          case PageTypes.ABOUT:
-          default:
-            break;
-        }
+        wx.navigateTo({ url: `../form/main?type=${PageTypes.SELF}`});
       }
     }
   }

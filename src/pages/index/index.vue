@@ -6,10 +6,10 @@
         <p class="index__title--2">你可以</p>
       </div>
       <div class="index__oper">
-        <div class="index__attnd" @click="onConfigClick">
+        <div class="index__attnd" @click="onAttnd">
           <p>发起考勤</p>
         </div>
-        <div class="index__sign" @click="onSignClick">
+        <div class="index__sign" @click="onOperClick(PageTypes.PASS_WD)">
           <p>输入口令签到</p>
         </div>
       </div>
@@ -18,74 +18,66 @@
 </template>
 
 <script>
+import { PageTypes } from "../../utils/consts";
+
 export default {
   data() {
-    return {};
+    return {
+      PageTypes
+    };
   },
   methods: {
-    onConfigClick() {
-      wx.navigateTo({
-        url: "../form/main?type=0"
-      });
+    onOperClick(pageType) {
+      wx.navigateTo({ url: `../form/main?type=${pageType}` });
     },
-    onSignClick() {
-      wx.navigateTo({
-        url: "../form/main?type=1"
-      });
+    onAttnd() {
+      wx.navigateTo({ url: '../attnd/main' });
     }
   }
 };
 </script>
 
 <style lang="less">
-@import "../../assets/style/_variables.less";
-.index {
-  p {
-    letter-spacing: 1rpx;
-  }
-  &__wrapper {
-    width: 100%;
-    padding: 200rpx 100rpx 0 100rpx;
-    box-sizing: border-box;
-  }
-  &__title {
-    &--1 {
-      font-size: 60rpx;
+  @import "../../assets/style/_variables.less";
+
+  .index {
+    &__wrapper {
+      width: 100%;
+      padding: 200rpx 100rpx 0 100rpx;
     }
-    &--2 {
-      font-size: 30rpx;
-      color: @font2;
-      margin-top: 20rpx;
+    &__title {
+      &--1 {
+        font-size: 60rpx;
+      }
+      &--2 {
+        font-size: 30rpx;
+        color: @font2;
+        margin-top: 20rpx;
+      }
     }
-  }
-  &__oper {
-    width: 100%;
-    margin-top: 40rpx;
-  }
-  &__attnd,
-  &__sign {
-    box-sizing: border-box;
-    width: 100%;
-    height: 100rpx;
-    font-size: 40rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50rpx;
-  }
-  &__attnd {
-    background: @theme;
-    color: white;
-    &:active {
-      background: @greenActive;
+    &__oper {
+      width: 100%;
+      margin-top: 40rpx;
     }
-  }
-  &__sign {
-    margin-top: 30rpx;
-    border: 1rpx solid black;
-    &:active {
-      background: @greyActive;
+    &__attnd,
+    &__sign {
+      width: 100%;
+      height: 100rpx;
+      font-size: 40rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50rpx;
+    }
+    &__attnd {
+      background: @theme;
+      color: white;
+      &:active { background: @greenActive; }
+    }
+    &__sign {
+      margin-top: 30rpx;
+      border: 1rpx solid black;
+      &:active { background: @greyActive; }
     }
   }
-}
 </style>

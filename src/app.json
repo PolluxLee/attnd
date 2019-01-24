@@ -4,7 +4,8 @@
     "pages/list/main",
     "pages/me/main",
     "pages/form/main",
-    "pages/attnd/main"
+    "pages/attnd/main",
+    "pages/about/main"
   ],
   "permission": {
     "scope.userLocation": {

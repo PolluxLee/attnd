@@ -1,22 +1,22 @@
 <template>
   <div class="list">
-    <ov-header 
+    <list-header 
       :header-height="headerHeight"
       @header-tab="onTabToggle"
       @header-refresh="onRefreshClick">
-    </ov-header>
-    <ov-listview
-      :scroll-height="scrollHeight"
-      :list-data="getListData"
-      :list-loading="listLoading"
-      @scroll-bottom="onScrollBottom">
-    </ov-listview>
+    </list-header>
+    <list-content
+      :height="listHeight"
+      :data="getListData"
+      :loading="listLoading"
+      @load-more="onLoadMore">
+    </list-content>
   </div>
 </template>
 
 <script>
-  import OvHeader from '@/components/list/list-header';
-  import OvListview from '@/components/list/list-listview';
+  import ListHeader from '@/components/list/list-header';
+  import ListContent from '@/components/list/list-content';
 
   // 紧紧当 onShow 和点击刷新按钮时获取最新数据
   // 上拉触底时追加新数据
@@ -25,7 +25,7 @@
       return {
         headerHeight: 100,  // rpx
         tabIndex: 0,
-        scrollHeight: 0,
+        listHeight: 0,
         listData: {
           attnd: [
             { name: '未命名1', date: '2018-09-10 21:30', author: '纸纸纸盆' },
@@ -51,16 +51,16 @@
       }
     },
     components: {
-      'ov-listview': OvListview,
-      'ov-header': OvHeader
+      'list-header': ListHeader,
+      'list-content': ListContent
     },
     methods: {
-      // 计算 ScrollView 的高度
-      getScrollViewHeight() {
+      // 计算 list-content 的高度
+      getListContentHeight() {
         try {
           const { windowWidth, windowHeight } = wx.getSystemInfoSync();
-          const headerHeight = this.headerHeight * (windowWidth / 750);
-          return windowHeight - headerHeight - 1;
+          console.log('windowHeight', windowHeight);
+          return windowHeight * (750 / windowWidth) - this.headerHeight - 1;
         } catch (e) {}
         return 750;
       },
@@ -70,7 +70,7 @@
       onRefreshClick() {
 
       },
-      onScrollBottom() {
+      onLoadMore() {
         if (this.listLoading) return;
         this.listLoading = true;
         if (this.tabIndex === 0) {
@@ -83,7 +83,18 @@
               { name: '未命名5', date: '2018-09-10 21:30', author: '纸纸纸盆' },
             ])
             this.listLoading = false;
-          }, 2000);
+          }, 500);
+        } else {
+          setTimeout(() => {
+            this.listData.signin = this.listData.signin.concat([
+              { name: '未命名1', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名2', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名3', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名4', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+              { name: '未命名5', date: '2018-09-10 21:30', author: '纸纸纸盆' },
+            ])
+            this.listLoading = false;
+          }, 500);
         }
       }
     },
@@ -94,7 +105,9 @@
       }
     },
     created() {
-      this.scrollHeight = this.getScrollViewHeight();
+    },
+    onLoad() {
+      this.listHeight = this.getListContentHeight();
     }
   }
 </script>

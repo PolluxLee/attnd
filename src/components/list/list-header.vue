@@ -1,11 +1,11 @@
 <template>
-  <div class="ovheader">
-    <div class="ovheader__nav" :style="{height: headerHeight + 'rpx'}">
-      <div class="ovheader__tab">
-        <p class="ovheader__tab--1" @click="onTabClick(0)" :style="tab1Toggle">考勤</p>
-        <p class="ovheader__tab--2" @click="onTabClick(1)" :style="tab2Toggle">签到</p>
+  <div class="list-header">
+    <div class="list-header__nav" :style="{height: headerHeight + 'rpx'}">
+      <div class="list-header__tab">
+        <p class="list-header__tab--1" @click="onTabClick(0)" :style="tab1Toggle">考勤</p>
+        <p class="list-header__tab--2" @click="onTabClick(1)" :style="tab2Toggle">签到</p>
       </div>
-      <div class="ovheader__refresh">
+      <div class="list-header__refresh">
         <img src="../../assets/icon/refresh.png">
       </div>
     </div>
@@ -58,13 +58,11 @@
 
 <style lang="less">
   @import "../../assets/style/_variables.less";
-  .ovheader {
-    box-sizing: border-box;
-    p { letter-spacing: 1rpx; }
+
+  .list-header {
     &__nav {
       width: 100%;
       background: white;
-      box-sizing: border-box;
       padding: 10rpx 60rpx 20rpx 60rpx;
       display: flex;
       justify-content: space-between;
@@ -74,7 +72,6 @@
       font-size: 32rpx;
       display: flex;
       &--1, &--2 {
-        box-sizing: border-box;
         padding: 8rpx 0 8rpx 0;
         margin-right: 50rpx;
       }
@@ -85,9 +82,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      &:active {
-        background: @greyActive;
-      }
+      &:active { background: @greyActive; }
       img {
         width: 32rpx;
         height: 32rpx;

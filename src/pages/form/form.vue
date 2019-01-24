@@ -87,8 +87,8 @@
     },
     computed: {
       isError() { return this.type === -1 },
-      isAttnd() { return this.type === PageTypes.ATTND },
-      isSign() { return this.type === PageTypes.SIGN },
+      isAttnd() { return this.type === PageTypes.RELEASE },
+      isSign() { return this.type === PageTypes.PASS_WD },
       isSelf() { return this.type === PageTypes.SELF },
       isEmail() { return this.type === PageTypes.EMAIL },
       isAuth() { return this.type === PageTypes.AUTH }
@@ -102,54 +102,47 @@
 </script>
 
 <style lang="less">
-@import "../../assets/style/_variables.less";
-.form {
-  p {
-    letter-spacing: 1rpx;
-  }
-  &__wrapper {
-    width: 100%;
-    padding: 100rpx 60rpx 0 60rpx;
-    box-sizing: border-box;
-  }
-  &__title {
-    margin-bottom: 100rpx;
-    &--1 {
-      font-size: 60rpx;
-    }
-    &--2 {
-      font-size: 30rpx;
-      color: @font2;
-      margin-top: 20rpx;
-    }
-  }
-  &__input {
-    padding: 0 0 15rpx 0;
-    border-bottom: 1rpx solid @border;
-    box-sizing: border-box;
-    margin-top: 36rpx;
-    width: 100%;
-    input {
+  @import "../../assets/style/_variables.less";
+
+  .form {
+    &__wrapper {
       width: 100%;
-      height: 60rpx;
+      padding: 100rpx 60rpx 0 60rpx;
+    }
+    &__title {
+      margin-bottom: 100rpx;
+      &--1 {
+        font-size: 60rpx;
+      }
+      &--2 {
+        font-size: 30rpx;
+        color: @font2;
+        margin-top: 20rpx;
+      }
+    }
+    &__input {
+      padding: 0 0 15rpx 0;
+      border-bottom: 1rpx solid @border;
+      margin-top: 36rpx;
+      width: 100%;
+      input {
+        width: 100%;
+        height: 60rpx;
+        font-size: 40rpx;
+      }
+    }
+    &__release {
+      margin-top: 40rpx;
+      width: 100%;
+      height: 100rpx;
       font-size: 40rpx;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      border-radius: 50rpx;
+      background: @theme;
+      color: white;
+      &:active { background: @greenActive; }
     }
   }
-  &__release {
-    box-sizing: border-box;
-    margin-top: 40rpx;
-    width: 100%;
-    height: 100rpx;
-    font-size: 40rpx;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    border-radius: 50rpx;
-    background: @theme;
-    color: white;
-    &:active {
-      background: @greenActive;
-    }
-  }
-}
 </style>

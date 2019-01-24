@@ -48,10 +48,10 @@
       background: #fafafa;
     }
     &__info {
-      p:first-child {
+      p:nth-child(1) {
         font-size: 40rpx;
       }
-      p:last-child {
+      p:nth-child(2) {
         color: @font2;
         font-size: 30rpx;
         margin-top: 26rpx;

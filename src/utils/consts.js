@@ -1,6 +1,6 @@
 export const PageTypes = {
-  ATTND: 0,
-  SIGN: 1,
+  RELEASE: 0,
+  PASS_WD: 1,
   SELF: 2,
   EMAIL: 3,
   AUTH: 4,

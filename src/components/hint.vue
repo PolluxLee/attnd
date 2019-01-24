@@ -1,6 +1,6 @@
 <template>
   <div class="hint">
-    <p :style="{visibility: show? 'visible': 'hidden'}">
+    <p :style="{color: show? '#838383': transparent}">
       {{title}}
     </p>
   </div>
