@@ -1,14 +1,12 @@
 <template>
-  <div class="list-content" :style="{height: height + 'rpx'}">
+  <div class="list-content">
     <div class="list-content__item"
-      v-for="(item, index) in data" :item="item" :key="index">
+      v-for="(item, index) in data" :item="item">
       <p class="list-content__item--t1">{{item.name}}</p>
       <p class="list-content__item--t2">时间：{{item.date}}</p>
       <p class="list-content__item--t2">发布者：{{item.author}}</p>
     </div>
-    <div class="list-content__loading">
-      <hint :show="loading"/>
-    </div>
+    <hint :show="loading"/>
   </div>
 </template>
 
@@ -17,17 +15,7 @@
   import { atLog } from '../../utils/atLog';
 
   export default {
-    data() {
-      return {
-        firstTime: true
-      }
-    },
     props: {
-      height: {
-        type: Number,
-        required: true,
-        default: 750
-      },
       data: {
         type: Array,
         required: true,
@@ -43,18 +31,9 @@
     components: {
       hint: Hint
     },
-    onLoad() {
-      let intersectionObserver = wx.createIntersectionObserver();
-      intersectionObserver.relativeTo('.list-content').observe('.list-content__loading', (res) => {
-        if (res.intersectionRatio > 0) {
-          if (this.firstTime) {
-            this.firstTime = false;
-            return;
-          }
-          atLog.log(this, '相交');
-          this.$emit('load-more');
-        }
-      });
+    onReachBottom() {
+      atLog.log(this, '相交');
+      this.$emit('load-more');
     }
   }
 </script>
@@ -63,7 +42,7 @@
   @import "../../assets/style/_variables.less";
 
   .list-content {
-    overflow: auto;
+    // overflow: auto;
     &__item {
       &:active { background: @greyActive; }
       background: white;

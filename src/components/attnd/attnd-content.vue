@@ -1,7 +1,7 @@
 <template>
-  <div class="attnd-content" :style="{height: height + 'rpx'}">
+  <div class="attnd-content">
     <div class="attnd-item"
-      v-for="(item, index) in data" :item="item" :key="index">
+      v-for="(item, index) in data" :item="item">
       <div class="attnd-item__avatar">
         <p>{{item.logo}}</p>
       </div>
@@ -28,11 +28,6 @@
       }
     },
     props: {
-      height: {
-        type: Number,
-        required: true,
-        default: 750
-      },
       data: {
         type: Array,
         required: true,
@@ -50,7 +45,7 @@
     },
     onLoad() {
       let intersectionObserver = wx.createIntersectionObserver();
-      intersectionObserver.relativeTo('.attnd-content').observe('.attnd-content__loading', (res) => {
+      intersectionObserver.relativeToViewport().observe('.attnd-content__loading', (res) => {
         if (res.intersectionRatio > 0) {
           if (this.firstTime) {
             this.firstTime = false;

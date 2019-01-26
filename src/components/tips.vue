@@ -34,7 +34,7 @@
     z-index: 500;
     width: 100%;
     height: 100%;
-    background: rgba(0, 0, 0, 0.6);
+    background: rgba(0, 0, 0, 0.2);
     &__content {
       position: absolute;
       top: 50%;
@@ -43,7 +43,7 @@
       z-index: 600;
       width: 400rpx;
       height: 140rpx;
-      background: rgba(0, 0, 0, 0.8);
+      background: rgba(0, 0, 0, 0.6);
       padding: 0 30rpx;
       display: flex;
       align-items: center;

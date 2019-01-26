@@ -1,6 +1,6 @@
 <template>
   <div class="hint">
-    <p :style="{color: show? '#838383': transparent}">
+    <p :style="{color: show? '#838383': 'rgba(0,0,0,0)'}">
       {{title}}
     </p>
   </div>
@@ -29,7 +29,6 @@
     width: 100%;
     p {
       font-size: 28rpx;
-      color: @font2;
       line-height: 90rpx;
       text-align: center;
     }

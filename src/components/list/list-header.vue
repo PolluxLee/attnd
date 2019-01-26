@@ -14,27 +14,27 @@
 
 <script>
   export default {
-    data() {
-      return {
-        tabIndex: 0
-      }
-    },
     props: {
+      tabIndex: {
+        type: Number,
+        default: 0,
+        validator: function (value) {
+          return [0, 1].indexOf(value) !== -1
+        }
+      },
       headerHeight: {
         type: Number,
         required: true,
-        default: () => {
-          return 100;
-        }
+        default: 100 // rpx
       }
     },
     methods: {
       onTabClick(index) {
-        this.tabIndex = index;
-        this.$emit('header-tab', index);
+        if (index !== this.tabIndex) {
+          this.$emit('header-tab', index);
+        }
       },
       onRefreshClick() {
-        // TODO: 防抖
         this.$emit('header-refresh');
       }
     },
@@ -51,7 +51,7 @@
         }
         return `border-bottom: 8rpx solid #ffffff;color: #838383`;
       }
-    },
+    }
   }
 </script>
 

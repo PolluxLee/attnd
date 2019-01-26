@@ -37,10 +37,7 @@
         wx.navigateTo({ url: `../form/main?type=${pageType}` });
       },
       onAttnd() {
-        this.showTips = true;
-        setTimeout(() => {
-          this.showTips = false;
-        }, 2000);
+        wx.showModal({ title: '保存失败', content: '', showCancel: false })
       }
     }
   };

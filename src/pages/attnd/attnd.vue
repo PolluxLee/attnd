@@ -1,14 +1,14 @@
 <template>
   <div class="attnd">
-    <attnd-header
-      :data="headerData"
-      :height="headerHeight"/>
-    <attnd-content
-      :data="contentData"
-      :height="contentHeight"
-      :loading="loading"
-      @load-more="onLoadMore"/>
-    <attnd-signin :btn-height="btnHeight"/>
+    <div class="attnd__header">
+      <attnd-header :data="headerData" :height="headerHeight"/>
+    </div>
+    <div class="attnd__content">
+      <attnd-content :data="contentData" :loading="loading" @load-more="onLoadMore"/>
+    </div>
+    <div class="attnd__signin">
+      <attnd-signin :btn-height="btnHeight"/>
+    </div>
   </div>
 </template>
 
@@ -21,9 +21,7 @@
     data() {
       return {
         headerHeight: 250, // rpx
-        contentHeight: 750, // rpx
         btnHeight: 90, // rpx
-
         headerData: {},
         contentData: [],
         loading: false
@@ -49,17 +47,9 @@
       ]
     },
     onLoad() {
-      this.contentHeight = this.getContentHeight();
+      
     },
     methods: {
-      getContentHeight() {
-        try {
-          const { windowWidth, windowHeight } = wx.getSystemInfoSync();
-          console.log('windowHeight', windowHeight);
-          return windowHeight * (750 / windowWidth) - this.headerHeight - this.btnHeight - 1;
-        } catch (e) {}
-        return 750;
-      },
       onLoadMore() {
         setTimeout(() => {
           this.contentData = this.contentData.concat([

@@ -40,7 +40,7 @@
     },
     methods: {
       onItemClick(type) {
-        wx.navigateTo({ url: `../form/main?type=${PageTypes.SELF}`});
+        wx.navigateTo({ url: `../form/main?type=${type}`});
       }
     }
   }
