@@ -1,10 +1,10 @@
 <template>
-  <div class="tips" v-if="show">
-    <div class="tips__content">
-      <div class="tips__loading">
+  <div class="at-loading" v-if="show">
+    <div class="at-loading__content">
+      <div class="at-loading__circle">
         <div></div><div></div><div></div><div></div>
       </div>
-      <p class="tips__title">{{title}}</p>
+      <p class="at-loading__title">{{title}}</p>
     </div>
   </div>
 </template>
@@ -27,7 +27,7 @@
 <style lang="less">
   @import "../assets/style/_variables.less";
 
-  .tips {
+  .at-loading {
     position: fixed;
     top: 0;
     left: 0;
@@ -49,7 +49,7 @@
       align-items: center;
       border-radius: 8rpx;
     }
-    &__loading {
+    &__circle {
       display: inline-block;
       position: relative;
       width: 80rpx;

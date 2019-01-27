@@ -1,7 +1,6 @@
 <template>
   <div class="attnd-content">
-    <div class="attnd-item"
-      v-for="(item, index) in data" :item="item">
+    <div class="attnd-item" v-for="(item, index) in data" :item="item">
       <div class="attnd-item__avatar">
         <p>{{item.logo}}</p>
       </div>
@@ -11,28 +10,21 @@
       </div>
       <div class="attnd-item__status"></div>
     </div>
-    <div class="attnd-content__loading">
-      <hint :show="loading"/>
-    </div>
+    <load-more :show="loading"/>
   </div>
 </template>
 
 <script>
-  import Hint from '../hint';
-  import { atLog } from '../../utils/atLog';
+  import LoadMore from '@/components/loadMore';
+  import { atLog } from '@/utils/atLog';
 
   export default {
-    data() {
-      return {
-        firstTime: true
-      }
-    },
     props: {
       data: {
         type: Array,
         required: true,
         default: () => {
-          return []
+          return [];
         }
       },
       loading: {
@@ -41,20 +33,10 @@
       }
     },
     components: {
-      hint: Hint
+      'load-more': LoadMore
     },
-    onLoad() {
-      let intersectionObserver = wx.createIntersectionObserver();
-      intersectionObserver.relativeToViewport().observe('.attnd-content__loading', (res) => {
-        if (res.intersectionRatio > 0) {
-          if (this.firstTime) {
-            this.firstTime = false;
-            return;
-          }
-          atLog.log(this, '相交');
-          this.$emit('load-more');
-        }
-      });
+    onReachBottom() {
+      this.$emit('load-more');
     }
   }
 </script>

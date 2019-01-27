@@ -14,7 +14,9 @@ export default {
         // wx.startRecord()
       }
     })
-    console.log('启动')
+    console.log('启动');
+    
+    wx.cloud.init();
   }
 }
 </script>

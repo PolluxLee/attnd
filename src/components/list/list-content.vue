@@ -6,13 +6,13 @@
       <p class="list-content__item--t2">时间：{{item.date}}</p>
       <p class="list-content__item--t2">发布者：{{item.author}}</p>
     </div>
-    <hint :show="loading"/>
+    <load-more :show="loading"/>
   </div>
 </template>
 
 <script>
-  import Hint from '../hint';
-  import { atLog } from '../../utils/atLog';
+  import LoadMore from '@/components/loadMore';
+  import { atLog } from '@/utils/atLog';
 
   export default {
     props: {
@@ -20,7 +20,7 @@
         type: Array,
         required: true,
         default: () => {
-          return []
+          return [];
         }
       },
       loading: {
@@ -29,10 +29,10 @@
       }
     },
     components: {
-      hint: Hint
+      'load-more': LoadMore
     },
     onReachBottom() {
-      atLog.log(this, '相交');
+      atLog.log('list-content', '相交');
       this.$emit('load-more');
     }
   }
@@ -42,7 +42,6 @@
   @import "../../assets/style/_variables.less";
 
   .list-content {
-    // overflow: auto;
     &__item {
       &:active { background: @greyActive; }
       background: white;
@@ -52,11 +51,17 @@
       &--t1 {
         font-size: 36rpx;
         margin-bottom: 30rpx;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
       &--t2 {
         font-size: 28rpx;
         color: @font2;
         margin-top: 10rpx;
+        overflow: hidden;
+        white-space: nowrap;
+        text-overflow: ellipsis;
       }
     }
   }

@@ -14,30 +14,30 @@
         </div>
       </div>
     </div>
-    <tips :show="showTips"/>
+    <at-loading :show="loading"/>
   </div>
 </template>
 
 <script>
-  import { PageTypes } from '../../utils/consts';
-  import Tips from '../../components/tips';
+  import { PageTypes } from '@/utils/consts';
+  import AtLoading from '@/components/atLoading';
 
   export default {
     data() {
       return {
         PageTypes,
-        showTips: false
+        loading: false
       };
     },
     components: {
-      tips: Tips
+      'at-loading': AtLoading
     },
     methods: {
       onOperClick(pageType) {
         wx.navigateTo({ url: `../form/main?type=${pageType}` });
       },
       onAttnd() {
-        wx.showModal({ title: '保存失败', content: '', showCancel: false })
+        wx.navigateTo({ url: `../attnd/main` });
       }
     }
   };

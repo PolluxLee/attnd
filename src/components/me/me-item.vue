@@ -2,7 +2,7 @@
   <div class="me-item" @click="onItemClick">
     <div class="me-item__info" v-if="item.type === 'info'">
       <p>{{item.titles[0]}}</p>
-      <p>{{item.titles[1]}}</p>
+      <p v-if="item.titles[1]">{{item.titles[1]}}</p>
     </div>
     <div class="me-item__option" v-if="item.type === 'option'">
       <p>{{item.titles[0]}}</p>
@@ -12,9 +12,6 @@
 
 <script>
   export default {
-    data() {
-      return {}
-    },
     props: {
       item: {
         type: Object,
@@ -22,7 +19,7 @@
         default() {
           return {
             type: 'option',
-            titles: ['option']
+            titles: ['...']
           }
         }
       }

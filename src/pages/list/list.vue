@@ -11,15 +11,15 @@
       <list-content
         v-if="tabIndex===0"
         :data="attnd.list"
-        :loading="attnd.loading"
+        :loading="attnd.loadingMore"
         @load-more="onLoadMore" />
       <list-content
         v-if="tabIndex===1"
         :data="signin.list"
-        :loading="signin.loading"
+        :loading="signin.loadingMore"
         @load-more="onLoadMore" />
     </div>
-    <tips :show="showTips"/>
+    <at-loading :show="loading"/>
   </div>
 </template>
 
@@ -29,7 +29,7 @@
   import { atLog } from '@/utils/atLog';
   import { getListData } from '@/services/list.service';
   import { throttle } from '@/utils/throttle';
-  import tips from '@/components/tips';
+  import AtLoading from '@/components/atLoading';
 
   // 仅仅当 onShow 和点击刷新按钮时获取最新数据
   // 上拉触底时追加新数据
@@ -38,19 +38,19 @@
       return {
         headerHeight: 100,  // rpx
         tabIndex: 0,
-        showTips: false,
+        loading: false,
         attnd: {
           page: 1,
           pageSize: 10,
           count: 100,
-          loading: false,
+          loadingMore: false,
           list: []
         },
         signin: {
           page: 1,
           pageSize: 10,
           count: 100,
-          loading: false,
+          loadingMore: false,
           list: []
         }
       }
@@ -58,17 +58,17 @@
     components: {
       'list-header': ListHeader,
       'list-content': ListContent,
-      tips
+      'at-loading': AtLoading
     },
     onShow: throttle(async function() {
-      if (this.showTips) return;
+      if (this.loading) return;
       let a = getListData(0);
       let b = getListData(1);
-      this.showTips = true;
+      this.loading = true;
       
       this.attnd.list = await a;
       this.signin.list = await b;
-      this.showTips = false;
+      this.loading = false;
     }, 30000),
     methods: {
       onTabToggle(tabIndex) {
@@ -81,16 +81,16 @@
         if (this.tabIndex === 1) wrapper = this.signin;
         if (!wrapper) return;
 
-        if (wrapper.loading) return;
-        wrapper.loading = true;
+        if (wrapper.loadingMore) return;
+        wrapper.loadingMore = true;
 
         if (this.tabIndex === 0) {
           wrapper.list = wrapper.list.concat(await getListData(0));
-          wrapper.loading = false;
+          wrapper.loadingMore = false;
         }
         if (this.tabIndex === 1) {
           wrapper.list = wrapper.list.concat(await getListData(1));
-          wrapper.loading = false;
+          wrapper.loadingMore = false;
         }
       }
     }

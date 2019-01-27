@@ -1,7 +1,7 @@
 <template>
   <div class="me">
     <me-item 
-      :item="{ type: 'info', titles: ['纸纸纸盆', '1506100006'] }"
+      :item="{ type: 'info', titles: [name, stuId] }"
       @item-click="onItemClick(PageTypes.SELF)" />
 
     <div style="margin-top: 20rpx">
@@ -26,13 +26,16 @@
 </template>
 
 <script>
-  import { PageTypes } from "../../utils/consts";
-  import MeItem from "@/components/me/me-item";
+  import { PageTypes } from '@/utils/consts';
+  import MeItem from '@/components/me/me-item';
+  import { getUserInfoService } from '@/services/info.service';
 
   export default {
     data() {
       return {
-        PageTypes
+        PageTypes,
+        name: '...',
+        stuId: ''
       }
     },
     components: {
@@ -40,8 +43,43 @@
     },
     methods: {
       onItemClick(type) {
-        wx.navigateTo({ url: `../form/main?type=${type}`});
+        this.globalData.pageType = type;
+        setTimeout(() => {
+          wx.navigateTo({ url: `../form/main`});
+        }, 0);
+      },
+      async getUserInfo() {
+        wx.showNavigationBarLoading();
+
+        let result = await getUserInfoService();
+        wx.hideNavigationBarLoading();
+
+        switch (result.code) {
+          case 3001: return;
+          case 2000: 
+            let { name, stuId } = result.data.payload;
+            this.name = name;
+            this.stuId = stuId;
+            return;
+          default:
+            this.showToast = true;
+            this.toastText = '获取信息失败';
+            setTimeout(() => {
+              this.showToast = false;
+            }, 1000);
+            return;
+        }
       }
+    },
+    onLoad() {
+      this.getUserInfo();
+    },
+    onShow() {
+      if (!this.globalData.isUserInfoUpdated) {
+        return;
+      }
+      this.globalData.isUserInfoUpdated = false;
+      this.getUserInfo();
     }
   }
 </script>

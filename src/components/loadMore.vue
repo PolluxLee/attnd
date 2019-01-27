@@ -1,5 +1,5 @@
 <template>
-  <div class="hint">
+  <div class="load-more">
     <p :style="{color: show? '#838383': 'rgba(0,0,0,0)'}">
       {{title}}
     </p>
@@ -24,7 +24,7 @@
 <style lang="less">
   @import "../assets/style/_variables.less";
   
-  .hint {
+  .load-more {
     height: 90rpx;
     width: 100%;
     p {

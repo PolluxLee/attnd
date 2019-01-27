@@ -3,8 +3,9 @@
     <div class="attnd__header">
       <attnd-header :data="headerData" :height="headerHeight"/>
     </div>
-    <div class="attnd__content">
-      <attnd-content :data="contentData" :loading="loading" @load-more="onLoadMore"/>
+    <div class="attnd__content"
+      :style="{paddingTop: headerHeight + 'rpx', paddingBottom: btnHeight + 'rpx'}">
+      <attnd-content :data="contentData" :loading="listLoading" @load-more="onLoadMore"/>
     </div>
     <div class="attnd__signin">
       <attnd-signin :btn-height="btnHeight"/>
@@ -20,11 +21,11 @@
   export default {
     data() {
       return {
-        headerHeight: 250, // rpx
+        headerHeight: 220, // rpx
         btnHeight: 90, // rpx
         headerData: {},
         contentData: [],
-        loading: false
+        listLoading: false
       }
     },
     components: {
@@ -35,15 +36,19 @@
     created() {
       this.contentData = [
         { logo: 1, name: 'plx', distance: 200 },
-        { logo: 2, name: 'plx', distance: 200 },
-        { logo: 3, name: 'plx', distance: 200 },
-        { logo: 4, name: 'plx', distance: 200 },
-        { logo: 5, name: 'plx', distance: 200 },
-        { logo: 6, name: 'plx', distance: 200 },
-        { logo: 7, name: 'plx', distance: 200 },
-        { logo: 8, name: 'plx', distance: 200 },
-        { logo: 9, name: 'plx', distance: 200 },
-        { logo: 0, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+        { logo: 1, name: 'plx', distance: 200 },
+
       ]
     },
     onLoad() {
@@ -51,6 +56,8 @@
     },
     methods: {
       onLoadMore() {
+        if (this.listLoading) return;
+        this.listLoading = true;
         setTimeout(() => {
           this.contentData = this.contentData.concat([
             { logo: 1, name: 'plx', distance: 200 },
@@ -58,6 +65,7 @@
             { logo: 3, name: 'plx', distance: 200 },
             { logo: 4, name: 'plx', distance: 200 },
           ]);
+          this.listLoading = false;
         }, 500);
       }
     }
@@ -66,4 +74,23 @@
 
 <style lang="less">
   @import "../../assets/style/_variables.less";
+
+  .attnd {
+    position: relative;
+    &__header {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      z-index: 100;
+      background: white;
+    }
+    &__signin {
+      position: fixed;
+      left: 0;
+      bottom: 0;
+      width: 100%;
+      z-index: 100;
+    }
+  }
 </style>
