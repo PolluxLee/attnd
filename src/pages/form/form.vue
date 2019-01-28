@@ -82,6 +82,7 @@
 </template>
 
 <script>
+  import Vue from 'vue';
   import { PageTypes } from '@/utils/consts';
   import AtLoading from '@/components/atLoading';
   import AtToast from '@/components/atToast';
@@ -166,13 +167,10 @@
         }
       }
     },
-    created() {
-      this.type = this.globalData.pageType;
-      console.log(this.globalData.pageType);
-      this.initData();
-    },
     onLoad() {
-      console.log(this.globalData.pageType);
+      console.log(Vue.prototype.globalData.pageType);
+      this.type = Vue.prototype.globalData.pageType;
+      this.initData();
     }
   }
 </script>

@@ -37,7 +37,7 @@
         wx.navigateTo({ url: `../form/main?type=${pageType}` });
       },
       onAttnd() {
-        wx.navigateTo({ url: `../attnd/main` });
+        wx.navigateTo({ url: `../form/email/main` });
       }
     }
   };

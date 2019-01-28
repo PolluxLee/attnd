@@ -2,7 +2,7 @@
   <div class="me">
     <me-item 
       :item="{ type: 'info', titles: [name, stuId] }"
-      @item-click="onItemClick(PageTypes.SELF)" />
+      @item-click="onItemClick(PageTypes.USER_INFO)" />
 
     <div style="margin-top: 20rpx">
       <!-- 电子邮箱 -->
@@ -43,10 +43,7 @@
     },
     methods: {
       onItemClick(type) {
-        this.globalData.pageType = type;
-        setTimeout(() => {
-          wx.navigateTo({ url: `../form/main`});
-        }, 0);
+        wx.navigateTo({ url: `../form/${type}/main`});
       },
       async getUserInfo() {
         wx.showNavigationBarLoading();

@@ -4,8 +4,13 @@
     "pages/list/main",
     "pages/me/main",
     "pages/form/main",
+    "pages/form/userinfo/main",
+    "pages/form/email/main",
+    "pages/form/auth/main",
+    "pages/form/release/main",
+    "pages/form/passwd/main",
+    "pages/form/about/main",
     "pages/attnd/main",
-    "pages/about/main"
   ],
   "cloud": true,
   "permission": {

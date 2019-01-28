@@ -1,8 +1,8 @@
 export const PageTypes = {
-  RELEASE: 0,
-  PASS_WD: 1,
-  SELF: 2,
-  EMAIL: 3,
-  AUTH: 4,
-  ABOUT: 5
-}
+  RELEASE: 'release',
+  PASS_WD: 'passwd',
+  USER_INFO: 'userinfo',
+  EMAIL: 'email',
+  AUTH: 'auth',
+  ABOUT: 'about'
+};
