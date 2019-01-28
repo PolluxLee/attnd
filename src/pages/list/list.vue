@@ -26,10 +26,10 @@
 <script>
   import ListHeader from '@/components/list/list-header';
   import ListContent from '@/components/list/list-content';
-  import { atLog } from '@/utils/atLog';
+  import { atLog } from '@/utils/at-log';
   import { getListData } from '@/services/list.service';
   import { throttle } from '@/utils/throttle';
-  import AtLoading from '@/components/atLoading';
+  import AtLoading from '@/components/at-loading';
 
   // 仅仅当 onShow 和点击刷新按钮时获取最新数据
   // 上拉触底时追加新数据

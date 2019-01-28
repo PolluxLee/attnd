@@ -20,7 +20,7 @@
 
 <script>
   import { PageTypes } from '@/utils/consts';
-  import AtLoading from '@/components/atLoading';
+  import AtLoading from '@/components/at-loading';
 
   export default {
     data() {
@@ -34,10 +34,10 @@
     },
     methods: {
       onOperClick(pageType) {
-        wx.navigateTo({ url: `../form/main?type=${pageType}` });
+        // wx.navigateTo({ url: `../form/main?type=${pageType}` });
       },
       onAttnd() {
-        wx.navigateTo({ url: `../form/email/main` });
+        // wx.navigateTo({ url: `../form/email/main` });
       }
     }
   };

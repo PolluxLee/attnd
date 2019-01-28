@@ -20,9 +20,9 @@
 
 <script>
   import { PageTypes } from '@/utils/consts';
-  import AtLoading from '@/components/atLoading';
-  import AtToast from '@/components/atToast';
-  import { atLog } from '@/utils/atLog';
+  import AtLoading from '@/components/at-loading';
+  import AtToast from '@/components/at-toast';
+  import { atLog } from '@/utils/at-log';
   import { getUserInfoService, updateUserInfoService } from '@/services/info.service';
   
   export default {

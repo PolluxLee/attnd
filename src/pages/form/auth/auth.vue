@@ -1,7 +1,7 @@
 <template>
   <div class="form">
     <!-- 授权管理 -->
-    <div class="form__wrapper" v-if="type===PageTypes.AUTH">
+    <div class="form__wrapper">
       <div class="form__title">
         <p class="form__title--1">授权</p>
         <p class="form__title--2">* 小程序需要获取你的地理位置</p>

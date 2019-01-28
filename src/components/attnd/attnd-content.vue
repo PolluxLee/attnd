@@ -15,8 +15,8 @@
 </template>
 
 <script>
-  import LoadMore from '@/components/loadMore';
-  import { atLog } from '@/utils/atLog';
+  import LoadMore from '@/components/load-more';
+  import { atLog } from '@/utils/at-log';
 
   export default {
     props: {

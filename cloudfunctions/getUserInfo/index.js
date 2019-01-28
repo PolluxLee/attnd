@@ -20,7 +20,7 @@ exports.main = async (event, context) => {
       return {
         code: 2000,
         data: {
-          payload: data[0]
+          payload: { name, stuId }
         }
       };
     } else if (Array.isArray(data) && data.length === 0) {

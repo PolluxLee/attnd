@@ -68,14 +68,7 @@
         }
       }
     },
-    onLoad() {
-      this.getUserInfo();
-    },
     onShow() {
-      if (!this.globalData.isUserInfoUpdated) {
-        return;
-      }
-      this.globalData.isUserInfoUpdated = false;
       this.getUserInfo();
     }
   }

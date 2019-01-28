@@ -22,14 +22,16 @@
         <p>保存</p>
       </div>
     </div>
+    <at-loading :show="showLoading" :title="loadingText"/>
+    <at-toast :show="showToast" :title="toastText"/>
   </div>
 </template>
 
 <script>
   import { PageTypes } from '@/utils/consts';
-  import AtLoading from '@/components/atLoading';
-  import AtToast from '@/components/atToast';
-  import { atLog } from '@/utils/atLog';
+  import AtLoading from '@/components/at-loading';
+  import AtToast from '@/components/at-toast';
+  import { atLog } from '@/utils/at-log';
   import { getUserInfoService, updateUserInfoService } from '@/services/info.service';
   
   export default {
@@ -94,7 +96,6 @@
 
         switch (result.code) {
           case 2000:
-            this.globalData.isUserInfoUpdated = true;
             wx.navigateBack();
             return;
           default:
