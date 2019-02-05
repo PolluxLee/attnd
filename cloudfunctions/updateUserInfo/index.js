@@ -6,7 +6,7 @@ exports.main = async (event, context) => {
   const _ = db.command;
   const dbName = 'user';
 
-  const { name, stuId } = event.payload;
+  const { name, stuId, email } = event.payload;
   const { openId } = event.userInfo;
 
   // 若 name 或 stuId 不合法或 openId 为空则返回
@@ -25,7 +25,7 @@ exports.main = async (event, context) => {
     // 不存在该记录，插入之
     if (Array.isArray(data) && data.length === 0) {
       await userCollection.add({
-        data: { openId, name, stuId }
+        data: { openId, name, stuId, email }
       });
       return { code: 2000 };
     }
@@ -35,7 +35,7 @@ exports.main = async (event, context) => {
       await userCollection.where({
         openId: _.eq(openId)
       }).update({
-        data: { name, stuId }
+        data: { name, stuId, email }
       })
       return { code: 2000 };
     }

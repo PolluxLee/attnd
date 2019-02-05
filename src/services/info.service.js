@@ -3,15 +3,15 @@ import { atStorage } from '@/utils/at-storage';
 
 export const getUserInfoService = async () => {
   // 从缓存获取
-  let userinfo = atStorage.get('userInfo');
-  if (userinfo) {
+  let userInfo = atStorage.get('userInfo');
+  if (userInfo) {
     let result = {
       code: 2000,
       data: {
-        payload: userinfo
+        payload: userInfo
       }
     };
-    atLog.log('UserInfo-Get-Storage', result);
+    atLog.log('getUserInfo-getStorage', result);
     return result;
   }
 
@@ -20,39 +20,42 @@ export const getUserInfoService = async () => {
     let { result } = await wx.cloud.callFunction({
       name: 'getUserInfo'
     });
-    atLog.log('UserInfo-Get', result);
+    atLog.log('getUserInfo-get', result);
 
     // 更新缓存
     if (result.code === 2000) {
-      atStorage.set('userInfo', result.data.payload);
+      let payload = result.data.payload;
+      atStorage.set('userInfo', payload);
+      atLog.log('getUserInfo-setStorage', payload);
     }
 
     return result;
   } catch (e) {
-    atLog.warn('UserInfo-Get', result);
-    return { code: 5000 };
+    atLog.warn('getUserInfo-err', e);
+    return { code: 5000, msg: e };
   }
 };
 
-export const updateUserInfoService = async ({ name, stuId }) => {
+export const updateUserInfoService = async ({ name, stuId, email }) => {
   if (!name) return { code: 4000 };
+
+  let payload = { name, stuId, email };
 
   try {
     let { result } = await wx.cloud.callFunction({
       name: 'updateUserInfo',
-      data: {
-        payload: { name, stuId }
-      },
+      data: { payload }
     });
-    atLog.log('UserInfo-Set', result);
+    atLog.log('setUserInfo-set', result);
 
     // 更新缓存
-    atStorage.set('userInfo', { name, stuId });
+    atStorage.set('userInfo', payload);
+    atLog.log('setUserInfo-setStorage', payload);
 
     return result; // { code: 2000 }
   } catch (e) {
-    atLog.warn('UserInfo-Set', result);
-    return { code: 5000, e };
+    atLog.warn('setUserInfo-err', e);
+    return { code: 5000 };
   }
 };
 

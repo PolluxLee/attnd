@@ -41,6 +41,11 @@
     width: 100%;
     position: relative;
     line-height: 1;
+    p {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
     &:active {
       background: #fafafa;
     }

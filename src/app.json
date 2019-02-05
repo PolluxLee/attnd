@@ -4,7 +4,6 @@
     "pages/list/main",
     "pages/me/main",
     "pages/form/userinfo/main",
-    "pages/form/email/main",
     "pages/form/auth/main",
     "pages/form/release/main",
     "pages/form/passwd/main",

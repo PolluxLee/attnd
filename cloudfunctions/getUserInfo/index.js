@@ -16,19 +16,27 @@ exports.main = async (event, context) => {
       openId: _.eq(openId)
     }).get();
 
+    console.log(data);
+
     if (Array.isArray(data) && data.length > 0) {
       return {
         code: 2000,
         data: {
-          payload: { name, stuId }
+          payload: {
+            name: data[0].name,
+            stuId: data[0].stuId,
+            email: data[0].email
+          }
         }
       };
     } else if (Array.isArray(data) && data.length === 0) {
       return { code: 3001 };
     } else {
+      console.log('记录数据结构不正确');
       return { code: 5000 };
     }
   } catch (e) {
-    return { code: 5000 };
+    console.log(e);
+    return { code: 5000, msg: e };
   }
 }

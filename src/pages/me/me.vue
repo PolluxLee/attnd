@@ -5,19 +5,14 @@
       @item-click="onItemClick(PageTypes.USER_INFO)" />
 
     <div style="margin-top: 20rpx">
-      <!-- 电子邮箱 -->
-      <me-item
-        :item="{ type: 'option', titles: ['电子邮箱'] }"
-        @item-click="onItemClick(PageTypes.EMAIL)" />
-    </div>
-
-    <div style="margin-top: 20rpx">
       <!-- 授权管理 -->
       <me-item
         :item="{ type: 'option', titles: ['授权管理'] }"
         @item-click="onItemClick(PageTypes.AUTH)" />
+    </div>
 
-      <!-- 关于我们 -->
+    <!-- 关于我们 -->
+    <div style="margin-top: 20rpx">
       <me-item
         :item="{ type: 'option', titles: ['关于我们'] }"
         @item-click="onItemClick(PageTypes.ABOUT)" />
@@ -35,7 +30,8 @@
       return {
         PageTypes,
         name: '...',
-        stuId: ''
+        stuId: '',
+        loading: false
       }
     },
     components: {
@@ -46,26 +42,22 @@
         wx.navigateTo({ url: `../form/${type}/main`});
       },
       async getUserInfo() {
+        if (this.loading) {
+          return;
+        }
+        this.loading = true;
         wx.showNavigationBarLoading();
 
         let result = await getUserInfoService();
         wx.hideNavigationBarLoading();
 
-        switch (result.code) {
-          case 3001: return;
-          case 2000: 
-            let { name, stuId } = result.data.payload;
-            this.name = name;
-            this.stuId = stuId;
-            return;
-          default:
-            this.showToast = true;
-            this.toastText = '获取信息失败';
-            setTimeout(() => {
-              this.showToast = false;
-            }, 1000);
-            return;
+        if (result.code === 2000) {
+          let { name, stuId } = result.data.payload;
+          this.name = name;
+          this.stuId = stuId;
         }
+
+        this.loading = false;
       }
     },
     onShow() {

@@ -1,6 +1,5 @@
 /**
- * userInfo: { name: '', stuId: '' }
- * email: ''
+ * userInfo: { name: '', stuId: '', email: '' }
  */
 
 export const atStorage = {

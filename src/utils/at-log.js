@@ -1,16 +1,16 @@
 const isShow = true;
 
 export const atLog = {
-  log: (componentName, msg) => {
+  log: (hint, msg) => {
     if (!isShow) return;
-    console.log(`【${componentName}】`, msg);
+    console.log(`【${hint}】`, msg);
   },
-  warn: (componentName, msg) => {
+  warn: (hint, msg) => {
     if (!isShow) return;
-    console.warn(`【${componentName}】`, msg);
+    console.warn(`【${hint}】`, msg);
   },
-  error: (componentName, msg) => {
+  error: (hint, msg) => {
     if (!isShow) return;
-    console.error(`【${componentName}】`, msg);
+    console.error(`【${hint}】`, msg);
   }
 }

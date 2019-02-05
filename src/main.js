@@ -1,6 +1,5 @@
 import Vue from 'vue';
 import App from './App';
-import global from '@/utils/global';
 
 Vue.config.productionTip = false;
 App.mpType = 'app';

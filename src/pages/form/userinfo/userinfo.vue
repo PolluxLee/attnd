@@ -10,13 +10,22 @@
         <input type="text" 
           placeholder="姓名（必填）" 
           placeholder-style="color:#bababa"
+          maxlength="140"
           v-model="name">
       </div>
       <div class="form__input">
         <input type="text"
         placeholder="ID/学号/工号"
         placeholder-style="color:#bababa"
+        maxlength="140"
         v-model="stuId">
+      </div>
+      <div class="form__input">
+        <input type="text"
+        placeholder="邮箱（用于导出表）"
+        placeholder-style="color:#bababa"
+        maxlength="140"
+        v-model="email">
       </div>
       <div class="form__release" @click="updateUserInfo">
         <p>保存</p>
@@ -44,6 +53,7 @@
 
         name: '',
         stuId: '',
+        email: ''
       }
     },
     components: {
@@ -71,9 +81,10 @@
         switch (result.code) {
           case 3001: return;
           case 2000: 
-            let { name, stuId } = result.data.payload;
+            let { name, stuId, email } = result.data.payload;
             this.name = name;
             this.stuId = stuId;
+            this.email = email;
             return;
           default:
             this.showToast = true;
@@ -90,7 +101,8 @@
 
         let result = await updateUserInfoService({
           name: this.name,
-          stuId: this.stuId
+          stuId: this.stuId,
+          email: this.email
         });
         this.showLoading = false;
 
