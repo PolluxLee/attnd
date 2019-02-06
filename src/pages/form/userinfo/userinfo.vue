@@ -62,14 +62,7 @@
     },
     methods: {
       initData() {
-        switch (this.type) {
-          case PageTypes.SELF: 
-            this.getUserInfo();
-            break;
-        }
-      },
-      onAuthConfirm() {
-        wx.openSetting()
+        this.getUserInfo();
       },
       async getUserInfo() {
         if (this.showLoading) return;

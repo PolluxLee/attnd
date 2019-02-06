@@ -4,13 +4,11 @@ cloud.init();
 exports.main = async (event, context) => {
   const db = cloud.database();
   const _ = db.command;
-  const dbName = 'user';
+  const userCollection = db.collection('user');
 
   const { openId } = event.userInfo;
 
   try {
-    let userCollection = db.collection(dbName);
-    
     // res = { data:[], errMsg }
     let { data } = await userCollection.where({
       openId: _.eq(openId)
