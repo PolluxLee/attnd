@@ -15,7 +15,11 @@
 
 <script>
   export default {
-
+    methods: {
+      onAuthConfirm() {
+        wx.openSetting();
+      }
+    }
   }
 </script>
 

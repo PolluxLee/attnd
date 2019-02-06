@@ -1,12 +1,17 @@
 <template>
   <div class="me-item" @click="onItemClick">
-    <div class="me-item__info" v-if="item.type === 'info'">
+    <button class="me-item__info"
+      v-if="item.type === 'info'"
+      hover-class="none">
       <p>{{item.titles[0]}}</p>
       <p v-if="item.titles[1]">{{item.titles[1]}}</p>
-    </div>
-    <div class="me-item__option" v-if="item.type === 'option'">
+    </button>
+    <button class="me-item__option"
+      v-if="item.type === 'option'"
+      :open-type="item.openType"
+      hover-class="none">
       <p>{{item.titles[0]}}</p>
-    </div>
+    </button>
   </div>
 </template>
 
@@ -19,7 +24,8 @@
         default() {
           return {
             type: 'option',
-            titles: ['...']
+            titles: ['...'],
+            openType: ''
           }
         }
       }
@@ -35,8 +41,19 @@
 <style lang="less">
   @import "../../assets/style/_variables.less";
   
+  button {
+    background: none;
+    line-height: normal;
+    padding: 0;
+    text-align: left;
+    letter-spacing: 1rpx;
+    &::after {
+      border: none;
+    }
+  }
+
   .me-item {
-    padding: 40rpx 60rpx;
+    padding: 30rpx 50rpx;
     background: white;
     width: 100%;
     position: relative;
@@ -47,7 +64,7 @@
       white-space: nowrap;
     }
     &:active {
-      background: #fafafa;
+      background: @hover;
     }
     &__info {
       p:nth-child(1) {
@@ -56,7 +73,7 @@
       p:nth-child(2) {
         color: @font2;
         font-size: 30rpx;
-        margin-top: 26rpx;
+        margin-top: 20rpx;
       }
     }
     &__option {

@@ -20,7 +20,7 @@ export const getLocationService = async () => {
       });
     });
   } catch (e) {
-    atLog.log('getLocation', e);
+    atLog.warn('getLocation', e);
     return null;
   }
 }

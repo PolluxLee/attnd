@@ -33,12 +33,12 @@
       'at-loading': AtLoading
     },
     methods: {
-      onOperClick(pageType) {
-        // wx.navigateTo({ url: `../form/main?type=${pageType}` });
-      },
       onAttnd() {
         wx.navigateTo({ url: `../form/${PageTypes.RELEASE}/main` });
-      }
+      },
+      onOperClick() {
+        wx.navigateTo({ url: `../form/about/main` });
+      },
     }
   };
 </script>

@@ -4,15 +4,17 @@
       :item="{ type: 'info', titles: [name, stuId] }"
       @item-click="onItemClick(PageTypes.USER_INFO)" />
 
-    <div style="margin-top: 20rpx">
+    <div class="me__group">
       <!-- 授权管理 -->
       <me-item
         :item="{ type: 'option', titles: ['授权管理'] }"
         @item-click="onItemClick(PageTypes.AUTH)" />
     </div>
 
-    <!-- 关于我们 -->
-    <div style="margin-top: 20rpx">
+    <div class="me__group">
+      <!-- 意见反馈 -->
+      <me-item :item="{ type: 'option', titles: ['意见反馈'], openType: 'feedback' }" />
+      <!-- 关于我们 -->
       <me-item
         :item="{ type: 'option', titles: ['关于我们'] }"
         @item-click="onItemClick(PageTypes.ABOUT)" />
@@ -73,6 +75,12 @@
     width: 100%;
     height: 100%;
     background-color: @bg;
+  }
+
+  .me {
+    &__group {
+      margin-top: 20rpx;
+    }
   }
 </style>
 
