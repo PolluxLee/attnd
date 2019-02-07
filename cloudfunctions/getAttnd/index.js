@@ -1,21 +1,28 @@
-const cloud = require('wx-server-sdk');
-cloud.init();
+const cloud = require('wx-server-sdk')
+cloud.init()
 
 exports.main = async (event, context) => {
   const db = cloud.database();
   const _ = db.command;
-  const userCollection = db.collection('user');
+  const attndCollection = db.collection('attnd');
 
   const { openId } = event.userInfo;
+  const { passwd } = event.payload;
 
   try {
+    if (typeof passwd !== 'string' || !passwd) {
+      return { code: 4000 };
+    }
+
     // res = { data:[], errMsg }
-    let { data } = await userCollection.field({
-      name: true,
-      stuId: true,
-      email: true
-    }).where({
-      openId: _.eq(openId)
+    let { data } = await attndCollection.where({
+      passwd: _.eq(passwd)
+    }).field({
+      attndName: true,
+      authorName: true,
+      passwd: true,
+      status: true,
+      time: true
     }).get();
 
     console.log(data);

@@ -7,9 +7,13 @@
         <p class="form__title--2">* 请向考勤发起者索取考勤口令</p>
       </div>
       <div class="form__input">
-        <input type="text" placeholder="例如：计网-计科151" placeholder-style="color:#bababa" focus="true">
+        <input type="text"
+          placeholder="例如：计网-计科151"
+          placeholder-style="color:#bababa"
+          focus="true"
+          v-model="passwd">
       </div>
-      <div class="form__release">
+      <div class="form__release" @click="onPasswdConfirm">
         <p>确认</p>
       </div>
     </div>
@@ -23,8 +27,8 @@
   import AtLoading from '@/components/at-loading';
   import AtToast from '@/components/at-toast';
   import { atLog } from '@/utils/at-log';
-  import { getUserInfoService, updateUserInfoService } from '@/services/info.service';
-  
+  import { getAttndService } from '@/services/attnd.service';
+
   export default {
     data() {
       return {
@@ -32,12 +36,49 @@
         loadingText: '请稍后...',
         showToast: false,
         toastText: '',
+
+        passwd: ''
       }
     },
     components: {
       'at-loading': AtLoading,
       'at-toast': AtToast
     },
+    methods: {
+      async onPasswdConfirm() {
+        if (!this.passwd) {
+          this.showToast = true;
+          this.toastText = '名称不能为空';
+          setTimeout(() => {
+            this.showToast = false;
+          }, 1000);
+          return;
+        }
+
+        if (this.showLoading) return;
+        this.showLoading = true;
+
+        let result = await getAttndService({ passwd: this.passwd });
+        this.showLoading = false;
+
+        switch (result.code) {
+          case 2000:
+            this.showToast = true;
+            this.toastText = '获取成功';
+            setTimeout(() => {
+              this.showToast = false;
+            }, 1000);
+            return;
+          default:
+            this.showToast = true;
+            this.toastText = '获取失败';
+            setTimeout(() => {
+              this.showToast = false;
+            }, 1000);
+            return;
+        }
+      }
+    }
   }
 </script>
 

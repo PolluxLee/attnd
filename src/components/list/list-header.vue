@@ -5,7 +5,7 @@
         <p class="list-header__tab--1" @click="onTabClick(0)" :style="tab1Toggle">考勤</p>
         <p class="list-header__tab--2" @click="onTabClick(1)" :style="tab2Toggle">签到</p>
       </div>
-      <div class="list-header__refresh">
+      <div class="list-header__refresh" @click="onRefreshClick">
         <img src="../../assets/icon/refresh.png">
       </div>
     </div>

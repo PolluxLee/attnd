@@ -9,7 +9,7 @@
         <div class="index__attnd" @click="onAttnd">
           <p>发起考勤</p>
         </div>
-        <div class="index__sign" @click="onOperClick(PageTypes.PASS_WD)">
+        <div class="index__sign" @click="onSignin">
           <p>输入口令签到</p>
         </div>
       </div>
@@ -36,8 +36,8 @@
       onAttnd() {
         wx.navigateTo({ url: `../form/${PageTypes.RELEASE}/main` });
       },
-      onOperClick() {
-        wx.navigateTo({ url: `../form/about/main` });
+      onSignin() {
+        wx.navigateTo({ url: `../form/${PageTypes.PASS_WD}/main` });
       },
     }
   };
@@ -55,6 +55,7 @@
     &__title {
       &--1 {
         font-size: 60rpx;
+        color: @font;
       }
       &--2 {
         font-size: 30rpx;

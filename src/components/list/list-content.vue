@@ -2,11 +2,13 @@
   <div class="list-content">
     <div class="list-content__item"
       v-for="(item, index) in data" :item="item">
-      <p class="list-content__item--t1">{{item.name}}</p>
-      <p class="list-content__item--t2">时间：{{item.date}}</p>
-      <p class="list-content__item--t2">发布者：{{item.author}}</p>
+      <p class="list-content__item--t1">{{item.attndName}}</p>
+      <p class="list-content__item--t2">时间：{{item.time}}</p>
+      <p class="list-content__item--t2">发布者：{{item.authorName}}</p>
+      <span class="list-content__item--hint"
+        :style="{background: item.status===1 ? 'green' : ''}" />
     </div>
-    <load-more :show="loading"/>
+    <load-more :active="loadingActive"/>
   </div>
 </template>
 
@@ -23,7 +25,7 @@
           return [];
         }
       },
-      loading: {
+      loadingActive: {
         type: Boolean,
         default: false
       }
@@ -43,11 +45,21 @@
 
   .list-content {
     &__item {
-      &:active { background: @greyActive; }
+      &:active { background: @hover; }
       background: white;
       padding: 30rpx 60rpx;
       margin-bottom: 10rpx;
       line-height: 1;
+      position: relative;
+      &--hint {
+        position: absolute;
+        display: block;
+        width: 12rpx;
+        height: 12rpx;
+        top: 30rpx;
+        right: 30rpx;
+        border-radius: 50%;
+      }
       &--t1 {
         font-size: 36rpx;
         margin-bottom: 30rpx;

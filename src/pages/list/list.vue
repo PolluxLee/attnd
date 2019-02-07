@@ -11,15 +11,15 @@
       <list-content
         v-if="tabIndex===0"
         :data="attnd.list"
-        :loading="attnd.loadingMore"
+        :loading-active="attnd.hasMore"
         @load-more="onLoadMore" />
       <list-content
         v-if="tabIndex===1"
         :data="signin.list"
-        :loading="signin.loadingMore"
+        :loading-active="signin.hasMore"
         @load-more="onLoadMore" />
     </div>
-    <at-loading :show="loading"/>
+    <!-- <at-loading :loading="loading"/> -->
   </div>
 </template>
 
@@ -27,9 +27,10 @@
   import ListHeader from '@/components/list/list-header';
   import ListContent from '@/components/list/list-content';
   import { atLog } from '@/utils/at-log';
-  import { getListData } from '@/services/list.service';
   import { throttle } from '@/utils/throttle';
+  import { debounce } from '@/utils/debounce';
   import AtLoading from '@/components/at-loading';
+  import { getAttndsService } from '@/services/attnd.service';
 
   // 仅仅当 onShow 和点击刷新按钮时获取最新数据
   // 上拉触底时追加新数据
@@ -40,58 +41,89 @@
         tabIndex: 0,
         loading: false,
         attnd: {
-          page: 1,
-          pageSize: 10,
-          count: 100,
-          loadingMore: false,
+          offsetId: null,
+          hasMore: true,
+          pageLoading: false,
           list: []
         },
         signin: {
-          page: 1,
-          pageSize: 10,
-          count: 100,
-          loadingMore: false,
+          offsetId: null,
+          pageLoading: false,
+          hasMore: true,
           list: []
         }
       }
     },
+
     components: {
       'list-header': ListHeader,
       'list-content': ListContent,
       'at-loading': AtLoading
     },
+
     onShow: throttle(async function() {
-      if (this.loading) return;
-      let a = getListData(0);
-      let b = getListData(1);
-      this.loading = true;
-      
-      this.attnd.list = await a;
-      this.signin.list = await b;
-      this.loading = false;
-    }, 30000),
+      this.resetList();
+    }, 8000),
+
     methods: {
       onTabToggle(tabIndex) {
         this.tabIndex = tabIndex;
         wx.pageScrollTo({ scrollTop: 0, duration: 0 });
       },
+
+      onRefreshClick: debounce(async function() {
+        this.resetList();
+      }, 500, true),
+
+      async resetList() {
+        if (this.loading) return;
+        this.loading = true;
+        wx.showNavigationBarLoading();
+
+        await this.getAttndList(0);
+
+        this.loading = false;
+        wx.hideNavigationBarLoading();
+        wx.pageScrollTo({ scrollTop: 0, duration: 0 });
+      },
+
       async onLoadMore() {
-        let wrapper = null;
-        if (this.tabIndex === 0) wrapper = this.attnd;
-        if (this.tabIndex === 1) wrapper = this.signin;
-        if (!wrapper) return;
-
-        if (wrapper.loadingMore) return;
-        wrapper.loadingMore = true;
-
         if (this.tabIndex === 0) {
-          wrapper.list = wrapper.list.concat(await getListData(0));
-          wrapper.loadingMore = false;
+          let wrapper = this.attnd;
+          if (wrapper.pageLoading || this.loading || !wrapper.hasMore) return;
+
+          wrapper.pageLoading = true;
+          await this.getAttndList(wrapper.list.length);
+          wrapper.pageLoading = false;
+        } else {
+
         }
-        if (this.tabIndex === 1) {
-          wrapper.list = wrapper.list.concat(await getListData(1));
-          wrapper.loadingMore = false;
+      },
+
+      async getAttndList(offset) {
+        let wrapper = this.attnd;
+
+        if (!Number.isInteger(offset) || offset < 0) return;
+
+        // 请求第 1 页时激活 loadMore 节点
+        if (offset === 0) wrapper.hasMore = true;
+
+        let result = await getAttndsService({
+          offset,
+          offsetId: wrapper.offsetId
+        });
+
+        // offset === 0 时更新偏移基准 offsetId
+        let { offsetId } = result.data
+        if (offset === 0 && offsetId) {
+          wrapper.offsetId = offsetId;
         }
+
+        let { payload } = result.data;
+        wrapper.list = offset === 0 ? payload : wrapper.list.concat(payload);
+
+        let { hasMore } = result.data;
+        wrapper.hasMore = hasMore;
       }
     }
   }

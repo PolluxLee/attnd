@@ -1,17 +1,15 @@
 <template>
   <div class="load-more">
-    <p :style="{color: show? '#838383': 'rgba(0,0,0,0)'}">
-      {{title}}
-    </p>
+    <p>{{active ? title : '无更多'}}</p>
   </div>
 </template>
 
 <script>
   export default {
     props: {
-      show: {
+      active: {
         type: Boolean,
-        default: false
+        default: true
       },
       title: {
         type: String,
@@ -31,6 +29,7 @@
       font-size: 28rpx;
       line-height: 90rpx;
       text-align: center;
+      color: @font2;
     }
   }
 </style>

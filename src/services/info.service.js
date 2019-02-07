@@ -58,11 +58,3 @@ export const updateUserInfoService = async ({ name, stuId, email }) => {
     return { code: 5000 };
   }
 };
-
-export const getEmailService = async () => {
-
-};
-
-export const updateEmailService = async () => {
-
-};
