@@ -69,7 +69,9 @@
         this.showLoading = true;
 
         let result = await getUserInfoService();
-        this.showLoading = false;
+        setTimeout(() => {
+          this.showLoading = false;
+        }, 500);
 
         switch (result.code) {
           case 3001: return;

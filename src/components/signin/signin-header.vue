@@ -1,10 +1,10 @@
 <template>
-  <div class="attnd-header" :style="{height: height + 'rpx'}">
-    <div class="attnd-header__content">
-      <p class="attnd-header__t1">计算机网络</p>
-      <p class="attnd-header__t2">时间：2018-12-21 14:26</p>
-      <p class="attnd-header__t2">发布者：纸纸纸盆</p>
-      <p class="attnd-header__t2">口令：E72efAp</p>
+  <div class="signin-header" :style="{height: height + 'rpx'}">
+    <div class="signin-header__content">
+      <p class="signin-header__t1">{{data.attndName}}</p>
+      <p class="signin-header__t2">时间：{{data.time}}</p>
+      <p class="signin-header__t2">发布者：{{data.authorName}}</p>
+      <p class="signin-header__t2">口令：{{data.passwd}}</p>
     </div>
   </div>
 </template>
@@ -21,7 +21,7 @@
         type: Object,
         required: true,
         default: () => {
-          return { name: '', time: '', author: '', passwd: '' }
+          return { attndName: '', time: '', authorName: '', passwd: '' }
         }
       }
     }
@@ -31,7 +31,7 @@
 <style lang="less">
   @import "../../assets/style/_variables.less";
 
-  .attnd-header {
+  .signin-header {
     padding: 0 60rpx;
     display: flex;
     align-items: center;

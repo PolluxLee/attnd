@@ -76,3 +76,8 @@ export const getAttndService = async ({ passwd }) => {
     return { code: 5000 };
   }
 }
+
+// 改变考勤状态
+export const changeAttndStatusService = async () => {
+  
+}

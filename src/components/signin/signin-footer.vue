@@ -1,6 +1,6 @@
 <template>
-  <div class="attnd-signin">
-    <div class="attnd-signin__confirm" :style="{height: btnHeight + 'rpx'}">
+  <div class="signin-footer">
+    <div class="signin-footer__confirm" :style="{height: btnHeight + 'rpx'}">
       <p>签到</p>
     </div>
   </div>
@@ -20,7 +20,7 @@
 <style lang="less">
   @import "../../assets/style/_variables.less";
 
-  .attnd-signin {
+  .signin-footer {
     &__confirm {
       background: @theme;
       width: 100%;

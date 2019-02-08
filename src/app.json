@@ -8,7 +8,7 @@
     "pages/form/release/main",
     "pages/form/passwd/main",
     "pages/form/about/main",
-    "pages/attnd/main"
+    "pages/signin/main"
   ],
   "cloud": true,
   "permission": {

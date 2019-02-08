@@ -1,16 +1,16 @@
 <template>
-  <div class="attnd-content">
-    <div class="attnd-item" v-for="(item, index) in data" :item="item">
-      <div class="attnd-item__avatar">
+  <div class="signin-content">
+    <div class="signin-item" v-for="(item, index) in data" :item="item">
+      <div class="signin-item__avatar">
         <p>{{item.logo}}</p>
       </div>
-      <div class="attnd-item__t">
-        <p class="attnd-item__t--1">{{item.name}}</p>
-        <p class="attnd-item__t--2">距离：{{item.distance}} m</p>
+      <div class="signin-item__t">
+        <p class="signin-item__t--1">{{item.name}}</p>
+        <p class="signin-item__t--2">距离：{{item.distance}} m</p>
       </div>
-      <div class="attnd-item__status"></div>
+      <div class="signin-item__status"></div>
     </div>
-    <load-more :show="loading"/>
+    <load-more :active="loadingActive"/>
   </div>
 </template>
 
@@ -27,7 +27,7 @@
           return [];
         }
       },
-      loading: {
+      loadingActive: {
         type: Boolean,
         default: false
       }
@@ -44,10 +44,10 @@
 <style lang="less">
   @import "../../assets/style/_variables.less";
 
-  .attnd-content {
+  .signin-content {
     padding: 0 60rpx;
     overflow: auto;
-    .attnd-item {
+    .signin-item {
       display: flex;
       justify-content: space-between;
       align-items: center;

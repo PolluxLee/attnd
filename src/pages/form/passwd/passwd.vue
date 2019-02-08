@@ -63,11 +63,7 @@
 
         switch (result.code) {
           case 2000:
-            this.showToast = true;
-            this.toastText = '获取成功';
-            setTimeout(() => {
-              this.showToast = false;
-            }, 1000);
+            wx.navigateTo({ url: `../../signin/main?passwd=${this.passwd}` })
             return;
           default:
             this.showToast = true;
