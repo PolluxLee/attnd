@@ -8,8 +8,6 @@
       </div>
       <div class="form__input">
         <input type="text"
-          placeholder="例如：计网-计科151"
-          placeholder-style="color:#bababa"
           focus="true"
           v-model="passwd">
       </div>
@@ -40,39 +38,45 @@
         passwd: ''
       }
     },
+
     components: {
       'at-loading': AtLoading,
       'at-toast': AtToast
     },
+
     methods: {
       async onPasswdConfirm() {
-        if (!this.passwd) {
-          this.showToast = true;
-          this.toastText = '名称不能为空';
-          setTimeout(() => {
-            this.showToast = false;
-          }, 1000);
-          return;
-        }
-
-        if (this.showLoading) return;
-        this.showLoading = true;
-
-        let result = await getAttndService({ passwd: this.passwd });
-        this.showLoading = false;
-
-        switch (result.code) {
-          case 2000:
-            wx.navigateTo({ url: `../../signin/main?passwd=${this.passwd}` })
-            return;
-          default:
+        try {
+          if (!this.passwd) {
             this.showToast = true;
-            this.toastText = '获取失败';
+            this.toastText = '名称不能为空';
             setTimeout(() => {
               this.showToast = false;
             }, 1000);
             return;
+          }
+
+          if (this.showLoading) return;
+          this.showLoading = true;
+
+          let result = await getAttndService({ passwd: this.passwd });
+          this.showLoading = false;
+
+          if (result.code === 2000) {
+            wx.navigateTo({ url: `../../signin/main?passwd=${this.passwd}` });
+          }
+        } catch (e) {
+          this.showLoading = false;
+          this.toShowToast('获取考勤信息出现了问题 :(');
         }
+      },
+
+      toShowToast(title = '', delay = 1500) {
+        this.showToast = true;
+        this.toastText = title;
+        setTimeout(() => {
+          this.showToast = false;
+        }, delay);
       }
     }
   }

@@ -37,7 +37,8 @@
         wx.navigateTo({ url: `../form/${PageTypes.RELEASE}/main` });
       },
       onSignin() {
-        wx.navigateTo({ url: `../form/${PageTypes.PASS_WD}/main` });
+        // wx.navigateTo({ url: `../form/${PageTypes.PASS_WD}/main` });
+        wx.navigateTo({ url: `../signin/main?passwd=M32n+u` });
       },
     }
   };

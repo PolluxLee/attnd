@@ -5,9 +5,10 @@ exports.main = async (event, context) => {
   const db = cloud.database();
   const _ = db.command;
   const userCollection = db.collection('user');
-
   const { name, stuId, email } = event.payload;
   const { openId } = event.userInfo;
+
+  console.log('payload', event.payload);
 
   // 若 name 或 stuId 不合法或 openId 为空则返回
   if (typeof name !== 'string' || typeof stuId !== 'string' || !name || !openId) {

@@ -6,37 +6,51 @@ exports.main = async (event, context) => {
   const _ = db.command;
   const signinCollection = db.collection('signin');
 
-  const { passwd } = event.payload;
+  const { passwd, offset } = event.payload;
+  const pageSize = 10;
   const { openId } = event.userInfo;
 
   console.log('payload', event.payload);
 
+  if (!Number.isInteger(offset) || offset < 0 || !passwd) {
+    return { code: 4000 };
+  }
+
   try {
-    if (typeof passwd !== 'string' || !passwd) {
-      return { code: 4000 };
-    }
-  
-    // res = { data:[], errMsg }
-    let { data } = await signinCollection.where({
+    // res = { data: [], errMsg }
+    let { data } = signinCollection.where({
       passwd: _.eq(passwd),
       openId: _.eq(openId)
-    }).get();
-  
+    }).field({
+      openId: true,
+      name: true,
+      stuId: true,
+      distance: true
+    })
+    .skip(offset)
+    .limit(pageSize)
+    .get();
+
     console.log(data);
 
-    if (Array.isArray(data) && data.length > 0) {
+    let hasMore = true;
+
+    if (Array.isArray(data)) {
+      if (data.length < pageSize) {
+        hasMore = false;
+      }
       return {
         code: 2000,
         data: {
-          payload: data[0]
+          hasMore,
+          payload: data
         }
       };
-    } else if (Array.isArray(data) && data.length === 0) {
-      return { code: 3001 };
     } else {
       console.log('记录数据结构不正确');
       return { code: 5000 };
     }
+
   } catch (e) {
     console.log(e);
     return { code: 5000, msg: e };

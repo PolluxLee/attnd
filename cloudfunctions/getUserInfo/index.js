@@ -5,7 +5,6 @@ exports.main = async (event, context) => {
   const db = cloud.database();
   const _ = db.command;
   const userCollection = db.collection('user');
-
   const { openId } = event.userInfo;
 
   try {

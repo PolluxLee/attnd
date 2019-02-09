@@ -37,7 +37,7 @@
       left: 50%;
       transform: translate(-50%, -50%);
       z-index: 600;
-      width: 400rpx;
+      max-width: 700rpx;
       height: 140rpx;
       background: rgba(0, 0, 0, 0.6);
       padding: 0 30rpx;

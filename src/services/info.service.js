@@ -22,17 +22,18 @@ export const getUserInfoService = async () => {
     });
     atLog.log('getUserInfo-get', result);
 
-    // 更新缓存
-    if (result.code === 2000) {
-      let payload = result.data.payload;
-      atStorage.set('userInfo', payload);
-      atLog.log('getUserInfo-setStorage', payload);
+    if (result.code !== 2000 && result.code !== 3001) {
+      throw result;
     }
+    // 更新缓存
+    let payload = result.data.payload;
+    atStorage.set('userInfo', payload);
+    atLog.log('getUserInfo-setStorage', payload);
 
     return result;
   } catch (e) {
     atLog.warn('getUserInfo-err', e);
-    return { code: 5000, msg: e };
+    throw e;
   }
 };
 
@@ -48,13 +49,16 @@ export const updateUserInfoService = async ({ name, stuId, email }) => {
     });
     atLog.log('setUserInfo-set', result);
 
+    if (result.code !== 2000) {
+      throw result;
+    }
+
     // 更新缓存
     atStorage.set('userInfo', payload);
     atLog.log('setUserInfo-setStorage', payload);
-
-    return result; // { code: 2000 }
+    return result;
   } catch (e) {
     atLog.warn('setUserInfo-err', e);
-    return { code: 5000 };
+    throw e;
   }
 };

@@ -2,8 +2,8 @@
   <div class="list-header">
     <div class="list-header__nav" :style="{height: headerHeight + 'rpx'}">
       <div class="list-header__tab">
-        <p class="list-header__tab--1" @click="onTabClick(0)" :style="tab1Toggle">考勤</p>
-        <p class="list-header__tab--2" @click="onTabClick(1)" :style="tab2Toggle">签到</p>
+        <p class="list-header__tab--1" @click="onTabClick(0)" :style="tab1Toggle">我发起的</p>
+        <p class="list-header__tab--2" @click="onTabClick(1)" :style="tab2Toggle">我参与的</p>
       </div>
       <div class="list-header__refresh" @click="onRefreshClick">
         <img src="../../assets/icon/refresh.png">
@@ -82,7 +82,7 @@
       display: flex;
       justify-content: center;
       align-items: center;
-      &:active { background: @greyActive; }
+      &:active { background: @hover; }
       img {
         width: 32rpx;
         height: 32rpx;

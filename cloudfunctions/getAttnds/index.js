@@ -10,6 +10,8 @@ exports.main = async (event, context) => {
   const { offset, offsetId } = event.payload;
   const pageSize = 10;
 
+  console.log('payload', event.payload);
+
   if (!Number.isInteger(offset) || offset < 0) {
     return { code: 4000 };
   }

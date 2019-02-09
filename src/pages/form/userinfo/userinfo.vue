@@ -20,13 +20,13 @@
         maxlength="140"
         v-model="stuId">
       </div>
-      <div class="form__input">
+      <!-- <div class="form__input">
         <input type="text"
         placeholder="邮箱（用于导出表）"
         placeholder-style="color:#bababa"
         maxlength="140"
         v-model="email">
-      </div>
+      </div> -->
       <div class="form__release" @click="updateUserInfo">
         <p>保存</p>
       </div>
@@ -56,67 +56,70 @@
         email: ''
       }
     },
+
     components: {
       'at-loading': AtLoading,
       'at-toast': AtToast
     },
+
     methods: {
+      onLoad() {
+        this.initData();
+      },
+
       initData() {
         this.getUserInfo();
       },
+
       async getUserInfo() {
-        if (this.showLoading) return;
-        this.showLoading = true;
+        try {
+          if (this.showLoading) return;
+          this.showLoading = true;
 
-        let result = await getUserInfoService();
-        setTimeout(() => {
-          this.showLoading = false;
-        }, 500);
+          let result = await getUserInfoService();
 
-        switch (result.code) {
-          case 3001: return;
-          case 2000: 
+          if (result.code === 2000) {
             let { name, stuId, email } = result.data.payload;
             this.name = name;
             this.stuId = stuId;
             this.email = email;
-            return;
-          default:
-            this.showToast = true;
-            this.toastText = '获取信息失败';
-            setTimeout(() => {
-              this.showToast = false;
-            }, 1000);
-            return;
+          }
+
+          setTimeout(() => { this.showLoading = false; }, 500);
+        } catch (e) {
+          setTimeout(() => { this.showLoading = false; }, 500);
+          this.toShowToast('获取信息出现了问题 :(');
         }
       },
+
       async updateUserInfo() {
-        if (this.showLoading) return;
-        this.showLoading = true;
+        try {
+          if (this.showLoading) return;
+          this.showLoading = true;
 
-        let result = await updateUserInfoService({
-          name: this.name,
-          stuId: this.stuId,
-          email: this.email
-        });
-        this.showLoading = false;
+          let result = await updateUserInfoService({
+            name: this.name,
+            stuId: this.stuId,
+            email: this.email
+          });
+          this.showLoading = false;
 
-        switch (result.code) {
-          case 2000:
+          if (result.code === 2000) {
             wx.navigateBack();
-            return;
-          default:
-            this.showToast = true;
-            this.toastText = '提交失败';
-            setTimeout(() => {
-              this.showToast = false;
-            }, 1000);
-            return;
+          }
+        } catch (e) {
+          this.showLoading = false;
+          this.toShowToast('获取信息出现了问题 :(');
         }
       }
     },
-    onLoad() {
-      this.initData();
+
+    toShowToast(title = '', delay = 1500) {
+      this.showToast = true;
+      this.toastText = title;
+      setTimeout(() => {
+        this.showToast = false;
+      }, delay);
     }
   }
 </script>

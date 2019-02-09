@@ -6,13 +6,13 @@ exports.main = async (event, context) => {
   const db = cloud.database();
   const _ = db.command;
   const attndCollection = db.collection('attnd');
-
   const { passwd, status } = event.payload;
   const { openId } = event.userInfo;
-
   const statusSet = new Set([0, 1]);
 
-  if (typeof passwd !== 'string' || !string
+  console.log('payload', event.payload);
+
+  if (typeof passwd !== 'string' || !passwd
     || typeof status !== 'number' || !statusSet.has(status)) {
     return { code: 4000 };
   }

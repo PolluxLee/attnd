@@ -47,6 +47,8 @@ exports.main = async (event, context) => {
   const { attndName, location, time } = event.payload;
   const { openId } = event.userInfo;
 
+  console.log('payload', event.payload);
+
   if (typeof attndName !== 'string' 
     || !attndName 
     || typeof location !== 'object' 
